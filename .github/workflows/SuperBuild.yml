@@ -22,9 +22,9 @@ jobs:
        
     - name: Install build dependencies
       run: |
-        python -m pip install --upgrade pip
-        python -m pip install ninja
-        python -m pip install cibuildwheel==1.7.1
+        python3 -m pip install --upgrade pip
+        python3 -m pip install ninja
+        python3 -m pip install cibuildwheel==1.7.1
         
     - name: Run SuperBuild
       run: |
@@ -37,7 +37,8 @@ jobs:
     - name: Check Results
       run: | 
         cd ..
-        cd build/SimpleITK-build/Wrapping/Python/Packaging
+        cd build/SimpleITK-build/Wrapping/Python
+        mv _SimpleITK.so Packaging
         ls
         
     - name: Check Results R
@@ -50,7 +51,7 @@ jobs:
       run: | 
         cd ..
         cd build/SimpleITK-build/Wrapping/Python/Packaging
-        python -m cibuildwheel --output-dir wheelhouse
+        python3 -m cibuildwheel --output-dir wheelhouse
         cd wheelhouse
         ls    
         
