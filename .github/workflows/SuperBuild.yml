@@ -50,3 +50,9 @@ jobs:
         cd ..
         cd build/SimpleITK-build/Wrapping/R
         ls
+        
+    - name: Publish Artifacts
+      uses: actions/upload-artifact@v2
+      with: 
+        name: WrappingRPython
+        path: build/SimpleITK-build/Wrapping
