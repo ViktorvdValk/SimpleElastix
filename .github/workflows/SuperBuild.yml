@@ -37,19 +37,21 @@ jobs:
     - name: Check Results
       run: | 
         cd ..
-        cd build/SimpleITK-build/Wrapping
+        cd build/SimpleITK-build/Wrapping/Python/Packaging
         ls
-        
-    - name: Check Results Python
-      run: | 
-        cd ..
-        cd build/SimpleITK-build/Wrapping/Python
-        python -m cibuildwheel --output-dir wheelhouse
-        cd wheelhouse
-        ls    
         
     - name: Check Results R
       run: | 
         cd ..
         cd build/SimpleITK-build/Wrapping/R
         ls
+        
+    - name: Check Results Python
+      run: | 
+        cd ..
+        cd build/SimpleITK-build/Wrapping/Python/Packaging
+        python -m cibuildwheel --output-dir wheelhouse
+        cd wheelhouse
+        ls    
+        
+
