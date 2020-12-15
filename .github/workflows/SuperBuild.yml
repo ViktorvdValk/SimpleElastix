@@ -55,8 +55,9 @@ jobs:
       shell: bash
       run: |
         mkdir uploads
-        mv build/SimpleITK-build/Wrapping/R uploads
-        mv build/SimpleITK-build/Wrapping/Python uploads
+        cd ..
+        mv build/SimpleITK-build/Wrapping/R SimpleElastix/uploads
+        mv build/SimpleITK-build/Wrapping/Python SimpleElastix/uploads
         
     - name: Publish Artifacts
       uses: actions/upload-artifact@v2
