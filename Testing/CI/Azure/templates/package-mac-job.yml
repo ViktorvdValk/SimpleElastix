@@ -82,8 +82,13 @@ jobs:
           pathtoPublish: $(Build.ArtifactStagingDirectory)/java
           artifactName: Java
         continueOnError: true
+      - task: UsePythonVersion@0
+        displayName: Enable Python
+        inputs:
+          versionSpec: '3.9'
+          architecture: 'x64'
       - bash: ${BUILD_SOURCESDIRECTORY}/Testing/CI/Azure/scripts/mac_build_python.sh
-        displayName: Build Python 38
+        displayName: Build Python 39
         continueOnError: true
       - task: UsePythonVersion@0
         displayName: Enable Python
@@ -100,6 +105,14 @@ jobs:
           architecture: 'x64'
       - bash: ${BUILD_SOURCESDIRECTORY}/Testing/CI/Azure/scripts/mac_build_python.sh
         displayName: Build Python 37
+        continueOnError: true
+      - task: UsePythonVersion@0
+        displayName: Enable Python
+        inputs:
+          versionSpec: '3.6'
+          architecture: 'x64'
+      - bash: ${BUILD_SOURCESDIRECTORY}/Testing/CI/Azure/scripts/mac_build_python.sh
+        displayName: Build Python 36
         continueOnError: true
       - task: UsePythonVersion@0
         displayName: Enable Python
