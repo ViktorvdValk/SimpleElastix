@@ -32,6 +32,7 @@ jobs:
         cd build
         cmake ../SimpleElastix/SuperBuild
         make -j4
+        make -C SimpleITK-build dist
         
     - name: Check Results
       run: | 
@@ -50,3 +51,16 @@ jobs:
         cd ..
         cd build/SimpleITK-build/Wrapping/R
         ls
+    
+    - name: Prepare Artifacts
+      shell: bash
+      run: |
+        mkdir uploads
+        cd ..
+        mv build/SimpleITK-build/Wrapping/Python/dist SimpleElastix/uploads
+        
+    - name: Publish Artifacts
+      uses: actions/upload-artifact@v2
+      with: 
+        name: WrappingRPython
+        path: uploads
