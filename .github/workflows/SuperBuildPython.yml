@@ -128,7 +128,8 @@ jobs:
         cd build
         cmake ../SimpleElastix/SuperBuild
         msbuild /p:configuration=release ALL_BUILD.vcxproj
-        ls
+        dir
+      shell: cmd
 
     - name: Check Results
       run: |
