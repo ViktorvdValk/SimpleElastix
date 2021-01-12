@@ -45,60 +45,60 @@ jobs:
   #       name: LinuxWheels
   #       path: uploads
 
-  build-wheel-macos:
-    runs-on: macos-10.15
-    strategy:
-      max-parallel: 2
-      matrix:
-        python-version: [3.6, 3.7, 3.8]
-
-    steps:
-    - uses: actions/checkout@v2
-
-    - name: Set up Python
-      uses: actions/setup-python@v1
-      with:
-        python-version: ${{ matrix.python-version }}
-
-    - name: Install build dependencies
-      run: |
-        python -m pip install --upgrade pip
-        python -m pip install ninja
-
-    - name: Build MacOs Python wheels
-      run: |
-        export MACOSX_DEPLOYMENT_TARGET=10.9
-        cd ..
-        mkdir build
-        cd build
-        cmake ../SimpleElastix/SuperBuild
-        make -j4
-        make -C SimpleITK-build dist
-
-    - name: Check Results
-      run: |
-        cd ..
-        cd build/SimpleITK-build/Wrapping
-        ls
-
-    - name: Check Results Python
-      run: |
-        cd ..
-        cd build/SimpleITK-build/Wrapping/Python
-        ls
-
-    - name: Prepare Artifacts
-      shell: bash
-      run: |
-        mkdir uploads
-        cd ..
-        mv build/SimpleITK-build/Wrapping/Python/dist SimpleElastix/uploads
-
-    - name: Publish Artifacts
-      uses: actions/upload-artifact@v2
-      with:
-        name: MacOsWheels${{ matrix.python-version }}
-        path: uploads
+  # build-wheel-macos:
+  #   runs-on: macos-10.15
+  #   strategy:
+  #     max-parallel: 2
+  #     matrix:
+  #       python-version: [3.6, 3.7, 3.8]
+  #
+  #   steps:
+  #   - uses: actions/checkout@v2
+  #
+  #   - name: Set up Python
+  #     uses: actions/setup-python@v1
+  #     with:
+  #       python-version: ${{ matrix.python-version }}
+  #
+  #   - name: Install build dependencies
+  #     run: |
+  #       python -m pip install --upgrade pip
+  #       python -m pip install ninja
+  #
+  #   - name: Build MacOs Python wheels
+  #     run: |
+  #       export MACOSX_DEPLOYMENT_TARGET=10.9
+  #       cd ..
+  #       mkdir build
+  #       cd build
+  #       cmake ../SimpleElastix/SuperBuild
+  #       make -j4
+  #       make -C SimpleITK-build dist
+  #
+  #   - name: Check Results
+  #     run: |
+  #       cd ..
+  #       cd build/SimpleITK-build/Wrapping
+  #       ls
+  #
+  #   - name: Check Results Python
+  #     run: |
+  #       cd ..
+  #       cd build/SimpleITK-build/Wrapping/Python
+  #       ls
+  #
+  #   - name: Prepare Artifacts
+  #     shell: bash
+  #     run: |
+  #       mkdir uploads
+  #       cd ..
+  #       mv build/SimpleITK-build/Wrapping/Python/dist SimpleElastix/uploads
+  #
+  #   - name: Publish Artifacts
+  #     uses: actions/upload-artifact@v2
+  #     with:
+  #       name: MacOsWheels${{ matrix.python-version }}
+  #       path: uploads
 
   build-wheel-windows:
     runs-on: windows-2019
@@ -115,8 +115,8 @@ jobs:
       with:
         python-version: ${{ matrix.python-version }}
 
-        - name: Install build dependencies
-        run: |
+    - name: Install build dependencies
+      run: |
         python -m pip install --upgrade pip
         python -m pip install ninja
 
