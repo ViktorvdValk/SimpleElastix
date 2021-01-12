@@ -25,6 +25,8 @@ jobs:
       with:
         python-versions: 'cp36-cp36m cp37-cp37m'
         build-requirements: 'ninja'
+        package-path: 'SimpleElastix'
+
 
     - name: Check Results
       run: |
