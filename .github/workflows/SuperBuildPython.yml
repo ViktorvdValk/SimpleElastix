@@ -1,9 +1,9 @@
-name: Elastix
+name: Build_Wheels
 
 on: [push, pull_request]
 
 jobs:
-  build-wheel-linux:
+  build-wheels-linux:
     runs-on: ubuntu-18.04
     strategy:
       max-parallel: 2
@@ -32,7 +32,12 @@ jobs:
       run: |
         mkdir uploads
         cd ..
-        mv build/SimpleITK-build/Wrapping/Python/dist SimpleElastix/uploads
+        versions='cp36-cp36m cp37-cp37m cp38-cp38m'
+        for version in $versions
+        do
+        mkdir uploads/$version
+        mv $version/SimpleITK-build/Wrapping/Python/dist SimpleElastix/uploads/$version
+        done
 
     - name: Publish Artifacts
       uses: actions/upload-artifact@v2
