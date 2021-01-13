@@ -68,6 +68,9 @@ jobs:
         python -m pip install --upgrade pip
         python -m pip install ninja
 
+    - name: Get specific version of CMake, Ninja
+      uses: lukka/get-cmake@v3.18.3
+
 
     - name: Download ITK
       if: steps.cache_itk.outputs.cache-hit != 'true'
@@ -79,7 +82,7 @@ jobs:
       run: |
         mkdir ITK-build
         cd ITK-build
-        cmake -DBUILD_EXAMPLES=OFF -DBUILD_TESTING=OFF -DCMAKE_BUILD_TYPE=${{ matrix.cmake-build-type }} -DCMAKE_POSITION_INDEPENDENT_CODE:BOOL=ON -DCMAKE_VISIBILITY_INLINES_HIDDEN:BOOL=ON -DBUILD_SHARED_LIBS:BOOL=OFF -DCMAKE_SKIP_RPATH:BOOL=ON -DITK_LEGACY_REMOVE:BOOL=ON -DITK_USE_KWSTYLE:BOOL=OFF -DITK_BUILD_DEFAULT_MODULES:BOOL=ON -DModule_ITKReview:BOOL=ON ../ITK-source
+        cmake -DBUILD_EXAMPLES=OFF -DBUILD_TESTING=OFF -DCMAKE_BUILD_TYPE=${{ matrix.cmake-build-type }} -DCMAKE_POSITION_INDEPENDENT_CODE:BOOL=ON -DCMAKE_VISIBILITY_INLINES_HIDDEN:BOOL=ON -DBUILD_SHARED_LIBS:BOOL=OFF -DCMAKE_SKIP_RPATH:BOOL=ON -DITK_LEGACY_REMOVE:BOOL=ON -DITK_USE_KWSTYLE:BOOL=OFF -DITK_BUILD_DEFAULT_MODULES:BOOL=ON -DModule_ITKReview:BOOL=ON -GNinja ../ITK-source
         ninja
 
     - name: Build ITK
@@ -88,7 +91,7 @@ jobs:
         mkdir ITK-build
         cd ITK-build
         call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
-        cmake -DBUILD_EXAMPLES=OFF -DBUILD_TESTING=OFF -DCMAKE_BUILD_TYPE=${{ matrix.cmake-build-type }} -DCMAKE_POSITION_INDEPENDENT_CODE:BOOL=ON -DCMAKE_VISIBILITY_INLINES_HIDDEN:BOOL=ON -DBUILD_SHARED_LIBS:BOOL=OFF -DCMAKE_SKIP_RPATH:BOOL=ON -DITK_LEGACY_REMOVE:BOOL=ON -DITK_USE_KWSTYLE:BOOL=OFF -DITK_BUILD_DEFAULT_MODULES:BOOL=ON -DModule_ITKReview:BOOL=ON ../ITK-source
+        cmake -DBUILD_EXAMPLES=OFF -DBUILD_TESTING=OFF -DCMAKE_BUILD_TYPE=${{ matrix.cmake-build-type }} -DCMAKE_POSITION_INDEPENDENT_CODE:BOOL=ON -DCMAKE_VISIBILITY_INLINES_HIDDEN:BOOL=ON -DBUILD_SHARED_LIBS:BOOL=OFF -DCMAKE_SKIP_RPATH:BOOL=ON -DITK_LEGACY_REMOVE:BOOL=ON -DITK_USE_KWSTYLE:BOOL=OFF -DITK_BUILD_DEFAULT_MODULES:BOOL=ON -DModule_ITKReview:BOOL=ON -GNinja ../ITK-source
         ninja
       shell: cmd
 
@@ -103,7 +106,7 @@ jobs:
       run: |
         mkdir Elastix-build
         cd Elastix-build
-        cmake -DBUILD_TESTING:BOOL=OFF -DELASTIX_BUILD_EXECUTABLE:BOOL=OFF -DITK_DIR=../ITK-build -DCMAKE_BUILD_TYPE=${{ matrix.cmake-build-type }} ../Elastix-source
+        cmake -DBUILD_TESTING:BOOL=OFF -DELASTIX_BUILD_EXECUTABLE:BOOL=OFF -DITK_DIR=../ITK-build -DCMAKE_BUILD_TYPE=${{ matrix.cmake-build-type }} -GNinja ../Elastix-source
         ninja
 
     - name: Build Elastix Unix
@@ -112,7 +115,7 @@ jobs:
         mkdir Elastix-build
         cd Elastix-build
         call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
-        cmake -DBUILD_TESTING:BOOL=OFF -DELASTIX_BUILD_EXECUTABLE:BOOL=OFF -DITK_DIR=../ITK-build -DCMAKE_BUILD_TYPE=${{ matrix.cmake-build-type }} ../Elastix-source
+        cmake -DBUILD_TESTING:BOOL=OFF -DELASTIX_BUILD_EXECUTABLE:BOOL=OFF -DITK_DIR=../ITK-build -DCMAKE_BUILD_TYPE=${{ matrix.cmake-build-type }} -GNinja ../Elastix-source
         ninja
       shell: cmd
 
@@ -121,7 +124,7 @@ jobs:
       run: |
         mkdir SimpleElastix-build
         cd SimpleElastix-build
-        cmake -DWRAP_LUA:BOOL=OFF -DWRAP_PYTHON:BOOL=ON -DWRAP_JAVA:BOOL=OFF -DWRAP_CSHARP:BOOL=OFF -DWRAP_TCL:BOOL=OFF -DWRAP_R:BOOL=OFF -DWRAP_RUBY:BOOL=OFF -DBUILD_EXAMPLES:BOOL=ON -DBUILD_TESTING:BOOL=OFF -DCMAKE_CXX_FLAGS=-w -DCMAKE_C_FLAGS=-w -DCMAKE_BUILD_TYPE=${{ matrix.cmake-build-type }} -DSimpleITK_USE_SYSTEM_ITK:BOOL=ON -DITK_DIR=../ITK-build -DSimpleITK_USE_SYSTEM_ELASTIX:BOOL=ON -DElastix_DIR=../Elastix-build -DSimpleITK_4D_IMAGES:BOOL=OFF ../SuperBuild
+        cmake -DWRAP_LUA:BOOL=OFF -DWRAP_PYTHON:BOOL=ON -DWRAP_JAVA:BOOL=OFF -DWRAP_CSHARP:BOOL=OFF -DWRAP_TCL:BOOL=OFF -DWRAP_R:BOOL=OFF -DWRAP_RUBY:BOOL=OFF -DBUILD_EXAMPLES:BOOL=ON -DBUILD_TESTING:BOOL=OFF -DCMAKE_CXX_FLAGS=-w -DCMAKE_C_FLAGS=-w -DCMAKE_BUILD_TYPE=${{ matrix.cmake-build-type }} -DSimpleITK_USE_SYSTEM_ITK:BOOL=ON -DITK_DIR=../ITK-build -DSimpleITK_USE_SYSTEM_ELASTIX:BOOL=ON -DElastix_DIR=../Elastix-build -DSimpleITK_4D_IMAGES:BOOL=OFF -GNinja ../SuperBuild
         ninja
         make -C SimpleITK-build dist
 
@@ -131,7 +134,7 @@ jobs:
         mkdir SimpleElastix-build
         cd SimpleElastix-build
         call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
-        cmake -DWRAP_LUA:BOOL=OFF -DWRAP_PYTHON:BOOL=ON -DWRAP_JAVA:BOOL=OFF -DWRAP_CSHARP:BOOL=OFF -DWRAP_TCL:BOOL=OFF -DWRAP_R:BOOL=OFF -DWRAP_RUBY:BOOL=OFF -DBUILD_EXAMPLES:BOOL=ON -DBUILD_TESTING:BOOL=OFF -DCMAKE_CXX_FLAGS=-w -DCMAKE_C_FLAGS=-w -DCMAKE_BUILD_TYPE=${{ matrix.cmake-build-type }} -DSimpleITK_USE_SYSTEM_ITK:BOOL=ON -DITK_DIR=../ITK-build -DSimpleITK_USE_SYSTEM_ELASTIX:BOOL=ON -DElastix_DIR=../Elastix-build -DSimpleITK_4D_IMAGES:BOOL=OFF ../SuperBuild
+        cmake -DWRAP_LUA:BOOL=OFF -DWRAP_PYTHON:BOOL=ON -DWRAP_JAVA:BOOL=OFF -DWRAP_CSHARP:BOOL=OFF -DWRAP_TCL:BOOL=OFF -DWRAP_R:BOOL=OFF -DWRAP_RUBY:BOOL=OFF -DBUILD_EXAMPLES:BOOL=ON -DBUILD_TESTING:BOOL=OFF -DCMAKE_CXX_FLAGS=-w -DCMAKE_C_FLAGS=-w -DCMAKE_BUILD_TYPE=${{ matrix.cmake-build-type }} -DSimpleITK_USE_SYSTEM_ITK:BOOL=ON -DITK_DIR=../ITK-build -DSimpleITK_USE_SYSTEM_ELASTIX:BOOL=ON -DElastix_DIR=../Elastix-build -DSimpleITK_4D_IMAGES:BOOL=OFF -GNinja ../SuperBuild
         ninja
 
     - name: Prepare Artifacts Unix
