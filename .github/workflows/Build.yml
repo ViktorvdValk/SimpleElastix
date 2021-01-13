@@ -124,8 +124,8 @@ jobs:
       run: |
         mkdir SimpleElastix-build
         cd SimpleElastix-build
-        cmake -DWRAP_LUA:BOOL=OFF -DWRAP_PYTHON:BOOL=ON -DWRAP_JAVA:BOOL=OFF -DWRAP_CSHARP:BOOL=OFF -DWRAP_TCL:BOOL=OFF -DWRAP_R:BOOL=OFF -DWRAP_RUBY:BOOL=OFF -DBUILD_EXAMPLES:BOOL=ON -DBUILD_TESTING:BOOL=OFF -DCMAKE_CXX_FLAGS=-w -DCMAKE_C_FLAGS=-w -DCMAKE_BUILD_TYPE=${{ matrix.cmake-build-type }} -DSimpleITK_USE_SYSTEM_ITK:BOOL=ON -DITK_DIR=../ITK-build -DSimpleITK_USE_SYSTEM_ELASTIX:BOOL=ON -DElastix_DIR=../Elastix-build -DSimpleITK_4D_IMAGES:BOOL=OFF -GNinja ../SuperBuild
-        ninja
+        cmake -DWRAP_LUA:BOOL=OFF -DWRAP_PYTHON:BOOL=ON -DWRAP_JAVA:BOOL=OFF -DWRAP_CSHARP:BOOL=OFF -DWRAP_TCL:BOOL=OFF -DWRAP_R:BOOL=OFF -DWRAP_RUBY:BOOL=OFF -DBUILD_EXAMPLES:BOOL=ON -DBUILD_TESTING:BOOL=OFF -DCMAKE_CXX_FLAGS=-w -DCMAKE_C_FLAGS=-w -DCMAKE_BUILD_TYPE=${{ matrix.cmake-build-type }} -DSimpleITK_USE_SYSTEM_ITK:BOOL=ON -DITK_DIR=../ITK-build -DSimpleITK_USE_SYSTEM_ELASTIX:BOOL=ON -DElastix_DIR=../Elastix-build -DSimpleITK_4D_IMAGES:BOOL=OFF ../SuperBuild
+        make -j4
         make -C SimpleITK-build dist
 
     - name: Build SimpleElastix Unix
