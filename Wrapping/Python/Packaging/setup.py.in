@@ -2,7 +2,7 @@ import sys
 import os
 
 try:
-    from setuptools import setup, Extension
+    from setuptools import setup, Extension, find_packages
     from setuptools.command.build_ext import build_ext as _build_ext
 except ImportError:
     from distutils.core import setup, Extension
@@ -70,18 +70,18 @@ class build_ext(_build_ext):
 
 
 setup(
-    name = 'SimpleITK',
+    name = 'SimpleElastix',
     version = get_pep386version(),
-    author = 'Insight Software Consortium',
+    author = 'Insight Software Consortium & Kasper Marstal',
     author_email = 'insight-users@itk.org',
     ext_modules=[Extension('SimpleITK._SimpleITK', [r'@SimpleITK_BINARY_MODULE@'])],
-    packages= ['SimpleITK'],
+    packages= find_packages(),
     package_dir = {'SimpleITK':r'@SimpleITK_PYTHON_PACKAGE_DIR@'},
     data_files = [("", doc_files)],
     download_url = r'https://www.itk.org/SimpleITKDoxygen/html/PyDownloadPage.html',
     platforms = [],
-    description = r'SimpleITK is a simplified interface to the Insight Toolkit (ITK) for image registration and segmentation',
-    long_description  = 'SimpleITK provides an abstraction layer to ITK that enables developers \
+    description = r'SimpleElastix is an elastix extension of SimpleITK, a simplified interface to the Insight Toolkit (ITK) for image registration and segmentation',
+    long_description  = 'SimpleElastix adds the power of elastix to the SimpleITK package, that provides an abstraction layer to ITK that enables developers \
                          and users to access the powerful features of the InsightToolkit in an easy \
                          to use manner for biomedical image analysis.',
     classifiers=[
@@ -102,7 +102,7 @@ setup(
         "Operating System :: MacOS"
         ],
     license='Apache',
-    keywords = 'SimpleITK ITK InsightToolkit segmentation registration',
+    keywords = 'SimpleITK SimpleElastix Elastix ITK InsightToolkit segmentation registration',
     url = r'http://simpleitk.org/',
     cmdclass={'build_ext':build_ext}
 )
