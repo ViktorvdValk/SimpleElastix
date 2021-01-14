@@ -23,10 +23,10 @@ jobs:
             cmake-build-type: "Release"
             ANNLib: "libANNlib-5.0.so"
             ANNLib2: "libANNlib-5.0.so.1"
-            ITK_SOURCE_DIR: ${{ github.workspace }}/ITK_source
-            ITK_BUILD_DIR: ${{ github.workspace }}/ITK_build
-            ELX_SOURCE_DIR: ${{ github.workspace }}/Elastix_source
-            ELX_BUILD_DIR: ${{ github.workspace }}/Elastix_build
+            ITK_SOURCE_DIR: ${{ github.workspace }}/ITK-source
+            ITK_BUILD_DIR: ${{ github.workspace }}/ITK-build
+            ELX_SOURCE_DIR: ${{ github.workspace }}/Elastix-source
+            ELX_BUILD_DIR: ${{ github.workspace }}/Elastix-build
           - os: windows-2019
             c-compiler: "cl.exe"
             cxx-compiler: "cl.exe"
@@ -34,10 +34,10 @@ jobs:
             elastix-git-tag: "5.0.1"
             cmake-build-type: "Release"
             ANNLib: "ANNlib-5.0.dll"
-            ITK_SOURCE_DIR: ${{ github.workspace }}/ITK_source
-            ITK_BUILD_DIR: ${{ github.workspace }}/ITK_build
-            ELX_SOURCE_DIR: ${{ github.workspace }}/Elastix_source
-            ELX_BUILD_DIR: ${{ github.workspace }}/Elastix_build
+            ITK_SOURCE_DIR: ${{ github.workspace }}/ITK-source
+            ITK_BUILD_DIR: ${{ github.workspace }}/ITK-build
+            ELX_SOURCE_DIR: ${{ github.workspace }}/Elastix-source
+            ELX_BUILD_DIR: ${{ github.workspace }}/Elastix-build
           - os: macos-10.15
             c-compiler: "clang"
             cxx-compiler: "clang++"
@@ -46,10 +46,10 @@ jobs:
             cmake-build-type: "Release"
             ANNLib: "libANNlib-5.0.1.dylib"
             ANNLib2: "libANNlib-5.0.dylib"
-            ITK_SOURCE_DIR: ${{ github.workspace }}/ITK_source
-            ITK_BUILD_DIR: ${{ github.workspace }}/ITK_build
-            ELX_SOURCE_DIR: ${{ github.workspace }}/Elastix_source
-            ELX_BUILD_DIR: ${{ github.workspace }}/Elastix_build
+            ITK_SOURCE_DIR: ${{ github.workspace }}/ITK-source
+            ITK_BUILD_DIR: ${{ github.workspace }}/ITK-build
+            ELX_SOURCE_DIR: ${{ github.workspace }}/Elastix-source
+            ELX_BUILD_DIR: ${{ github.workspace }}/Elastix-build
 
 
     steps:
