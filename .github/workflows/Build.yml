@@ -13,7 +13,7 @@ jobs:
     strategy:
       max-parallel: 3
       matrix:
-        os: [windows-2019, macos-10.15]
+        os: [macos-10.15]
         include:
           # - os: ubuntu-18.04
           #   c-compiler: "gcc"
@@ -27,17 +27,17 @@ jobs:
           #   ITK_BUILD_DIR: $GITHUB_WORKSPACE/ITK_build
           #   ELX_SOURCE_DIR: $GITHUB_WORKSPACE/Elastix_source
           #   ELX_BUILD_DIR: $GITHUB_WORKSPACE/Elastix_build
-          - os: windows-2019
-            c-compiler: "cl.exe"
-            cxx-compiler: "cl.exe"
-            itk-git-tag: "v5.1.2"
-            elastix-git-tag: "5.0.1"
-            cmake-build-type: "Release"
-            ANNLib: "ANNlib-5.0.dll"
-            ITK_SOURCE_DIR: $GITHUB_WORKSPACE/ITK_source
-            ITK_BUILD_DIR: $GITHUB_WORKSPACE/ITK_build
-            ELX_SOURCE_DIR: $GITHUB_WORKSPACE/Elastix_source
-            ELX_BUILD_DIR: $GITHUB_WORKSPACE/Elastix_build
+          # - os: windows-2019
+          #   c-compiler: "cl.exe"
+          #   cxx-compiler: "cl.exe"
+          #   itk-git-tag: "v5.1.2"
+          #   elastix-git-tag: "5.0.1"
+          #   cmake-build-type: "Release"
+          #   ANNLib: "ANNlib-5.0.dll"
+          #   ITK_SOURCE_DIR: $GITHUB_WORKSPACE/ITK_source
+          #   ITK_BUILD_DIR: $GITHUB_WORKSPACE/ITK_build
+          #   ELX_SOURCE_DIR: $GITHUB_WORKSPACE/Elastix_source
+          #   ELX_BUILD_DIR: $GITHUB_WORKSPACE/Elastix_build
           - os: macos-10.15
             c-compiler: "clang"
             cxx-compiler: "clang++"
