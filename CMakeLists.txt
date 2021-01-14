@@ -59,7 +59,7 @@ include( sitkSITKLegacyNaming )
 include( sitkForbidDownloadsOption )
 include( sitkTargetUseITK )
 
-find_package(ITK REQUIRED )
+find_package(ITK REQUIRED PATHS ./ITK-build)
 #we require certain packages be turned on in ITK
 include(sitkCheckForITKModuleDependencies)
 
