@@ -15,18 +15,18 @@ jobs:
       matrix:
         os: [windows-2019, macos-10.15]
         include:
-          - os: ubuntu-18.04
-            c-compiler: "gcc"
-            cxx-compiler: "g++"
-            itk-git-tag: "v5.1.2"
-            elastix-git-tag: "5.0.1"
-            cmake-build-type: "Release"
-            ANNLib: "libANNlib-5.0.so"
-            ANNLib2: "libANNlib-5.0.so.1"
-            ITK_SOURCE_DIR: $GITHUB_WORKSPACE/ITK_source
-            ITK_BUILD_DIR: $GITHUB_WORKSPACE/ITK_build
-            ELX_SOURCE_DIR: $GITHUB_WORKSPACE/Elastix_source
-            ELX_BUILD_DIR: $GITHUB_WORKSPACE/Elastix_build
+          # - os: ubuntu-18.04
+          #   c-compiler: "gcc"
+          #   cxx-compiler: "g++"
+          #   itk-git-tag: "v5.1.2"
+          #   elastix-git-tag: "5.0.1"
+          #   cmake-build-type: "Release"
+          #   ANNLib: "libANNlib-5.0.so"
+          #   ANNLib2: "libANNlib-5.0.so.1"
+          #   ITK_SOURCE_DIR: $GITHUB_WORKSPACE/ITK_source
+          #   ITK_BUILD_DIR: $GITHUB_WORKSPACE/ITK_build
+          #   ELX_SOURCE_DIR: $GITHUB_WORKSPACE/Elastix_source
+          #   ELX_BUILD_DIR: $GITHUB_WORKSPACE/Elastix_build
           - os: windows-2019
             c-compiler: "cl.exe"
             cxx-compiler: "cl.exe"
