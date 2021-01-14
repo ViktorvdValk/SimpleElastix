@@ -46,6 +46,10 @@ jobs:
             cmake-build-type: "Release"
             ANNLib: "libANNlib-5.0.1.dylib"
             ANNLib2: "libANNlib-5.0.dylib"
+            ITK_SOURCE_DIR: $GITHUB_WORKSPACE/ITK_source
+            ITK_BUILD_DIR: $GITHUB_WORKSPACE/ITK_build
+            ELX_SOURCE_DIR: $GITHUB_WORKSPACE/Elastix_source
+            ELX_BUILD_DIR: $GITHUB_WORKSPACE/Elastix_build
 
 
     steps:
@@ -76,6 +80,9 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         python -m pip install ninja
+        ls
+        cd ${{ ITK_BUILD_DIR }}
+        ls
 
     - name: Get specific version of CMake, Ninja
       uses: lukka/get-cmake@v3.18.3
