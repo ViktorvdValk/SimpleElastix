@@ -23,6 +23,10 @@ jobs:
             cmake-build-type: "Release"
             ANNLib: "libANNlib-5.0.so"
             ANNLib2: "libANNlib-5.0.so.1"
+            ITK_SOURCE_DIR: $GITHUB_WORKSPACE/ITK_source
+            ITK_BUILD_DIR: $GITHUB_WORKSPACE/ITK_build
+            ELX_SOURCE_DIR: $GITHUB_WORKSPACE/Elastix_source
+            ELX_BUILD_DIR: $GITHUB_WORKSPACE/Elastix_build
           - os: windows-2019
             c-compiler: "cl.exe"
             cxx-compiler: "cl.exe"
@@ -30,6 +34,10 @@ jobs:
             elastix-git-tag: "5.0.1"
             cmake-build-type: "Release"
             ANNLib: "ANNlib-5.0.dll"
+            ITK_SOURCE_DIR: $GITHUB_WORKSPACE/ITK_source
+            ITK_BUILD_DIR: $GITHUB_WORKSPACE/ITK_build
+            ELX_SOURCE_DIR: $GITHUB_WORKSPACE/Elastix_source
+            ELX_BUILD_DIR: $GITHUB_WORKSPACE/Elastix_build
           - os: macos-10.15
             c-compiler: "clang"
             cxx-compiler: "clang++"
@@ -38,6 +46,10 @@ jobs:
             cmake-build-type: "Release"
             ANNLib: "libANNlib-5.0.1.dylib"
             ANNLib2: "libANNlib-5.0.dylib"
+            ITK_SOURCE_DIR: $GITHUB_WORKSPACE/ITK_source
+            ITK_BUILD_DIR: $GITHUB_WORKSPACE/ITK_build
+            ELX_SOURCE_DIR: $GITHUB_WORKSPACE/Elastix_source
+            ELX_BUILD_DIR: $GITHUB_WORKSPACE/Elastix_build
 
     steps:
     - uses: actions/checkout@v2
@@ -98,7 +110,7 @@ jobs:
     - name: Download Elastix
       if: steps.cache_elastix.outputs.cache-hit != 'true'
       run: |
-        git clone https://github.com/SuperElastix/elastix.git --branch ${{ matrix.elastix-git-tag }} --depth 1 Elastix-source
+        git clone https://github.com/SuperElastix/elastix.git --branch ${{ matrix.elastix-git-tag }} --depth 1 $ELX_SOURCE_DIR
 
 
     - name: Build Elastix Unix
@@ -106,7 +118,7 @@ jobs:
       run: |
         mkdir Elastix-build
         cd Elastix-build
-        cmake -DBUILD_TESTING:BOOL=OFF -DELASTIX_BUILD_EXECUTABLE:BOOL=OFF -DITK_DIR=../ITK-build -DCMAKE_BUILD_TYPE=${{ matrix.cmake-build-type }} -GNinja ../Elastix-source
+        cmake -DBUILD_TESTING:BOOL=OFF -DELASTIX_BUILD_EXECUTABLE:BOOL=OFF -DITK_DIR=$ITK_BUILD_DIR -DCMAKE_BUILD_TYPE=${{ matrix.cmake-build-type }} -GNinja $ELX_SOURCE_DIR
         ninja
 
     - name: Build Elastix Unix
@@ -115,7 +127,7 @@ jobs:
         mkdir Elastix-build
         cd Elastix-build
         call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
-        cmake -DBUILD_TESTING:BOOL=OFF -DELASTIX_BUILD_EXECUTABLE:BOOL=OFF -DITK_DIR=../ITK-build -DCMAKE_BUILD_TYPE=${{ matrix.cmake-build-type }} -GNinja ../Elastix-source
+        cmake -DBUILD_TESTING:BOOL=OFF -DELASTIX_BUILD_EXECUTABLE:BOOL=OFF -DITK_DIR=$ITK_BUILD_DIR -DCMAKE_BUILD_TYPE=${{ matrix.cmake-build-type }} -GNinja $ELX_SOURCE_DIR
         ninja
       shell: cmd
 
@@ -126,7 +138,7 @@ jobs:
         ls ITK-build
         mkdir SimpleElastix-build
         cd SimpleElastix-build
-        cmake -DWRAP_LUA:BOOL=OFF -DWRAP_PYTHON:BOOL=ON -DWRAP_JAVA:BOOL=OFF -DWRAP_CSHARP:BOOL=OFF -DWRAP_TCL:BOOL=OFF -DWRAP_R:BOOL=OFF -DWRAP_RUBY:BOOL=OFF -DBUILD_EXAMPLES:BOOL=ON -DBUILD_TESTING:BOOL=OFF -DCMAKE_CXX_FLAGS=-w -DCMAKE_C_FLAGS=-w -DCMAKE_BUILD_TYPE=${{ matrix.cmake-build-type }} -DSimpleITK_USE_SYSTEM_ITK:BOOL=ON -DITK_DIR=../ITK-build -DSimpleITK_USE_SYSTEM_ELASTIX:BOOL=ON -DElastix_DIR=../Elastix-build -DSimpleITK_4D_IMAGES:BOOL=OFF ../SuperBuild
+        cmake -DWRAP_LUA:BOOL=OFF -DWRAP_PYTHON:BOOL=ON -DWRAP_JAVA:BOOL=OFF -DWRAP_CSHARP:BOOL=OFF -DWRAP_TCL:BOOL=OFF -DWRAP_R:BOOL=OFF -DWRAP_RUBY:BOOL=OFF -DBUILD_EXAMPLES:BOOL=ON -DBUILD_TESTING:BOOL=OFF -DCMAKE_CXX_FLAGS=-w -DCMAKE_C_FLAGS=-w -DCMAKE_BUILD_TYPE=${{ matrix.cmake-build-type }} -DSimpleITK_USE_SYSTEM_ITK:BOOL=ON -DITK_DIR=$ITK_BUILD_DIR -DSimpleITK_USE_SYSTEM_ELASTIX:BOOL=ON -DElastix_DIR=$ELX_BUILD_DIR -DSimpleITK_4D_IMAGES:BOOL=OFF ../SuperBuild
         make -j4
         make -C SimpleITK-build dist
 
@@ -136,7 +148,7 @@ jobs:
         mkdir SimpleElastix-build
         cd SimpleElastix-build
         call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
-        cmake -DWRAP_LUA:BOOL=OFF -DWRAP_PYTHON:BOOL=ON -DWRAP_JAVA:BOOL=OFF -DWRAP_CSHARP:BOOL=OFF -DWRAP_TCL:BOOL=OFF -DWRAP_R:BOOL=OFF -DWRAP_RUBY:BOOL=OFF -DBUILD_EXAMPLES:BOOL=ON -DBUILD_TESTING:BOOL=OFF -DCMAKE_CXX_FLAGS=-w -DCMAKE_C_FLAGS=-w -DCMAKE_BUILD_TYPE=${{ matrix.cmake-build-type }} -DSimpleITK_USE_SYSTEM_ITK:BOOL=ON -DITK_DIR=../ITK-build -DSimpleITK_USE_SYSTEM_ELASTIX:BOOL=ON -DElastix_DIR=../Elastix-build -DSimpleITK_4D_IMAGES:BOOL=OFF -GNinja ../SuperBuild
+        cmake -DWRAP_LUA:BOOL=OFF -DWRAP_PYTHON:BOOL=ON -DWRAP_JAVA:BOOL=OFF -DWRAP_CSHARP:BOOL=OFF -DWRAP_TCL:BOOL=OFF -DWRAP_R:BOOL=OFF -DWRAP_RUBY:BOOL=OFF -DBUILD_EXAMPLES:BOOL=ON -DBUILD_TESTING:BOOL=OFF -DCMAKE_CXX_FLAGS=-w -DCMAKE_C_FLAGS=-w -DCMAKE_BUILD_TYPE=${{ matrix.cmake-build-type }} -DSimpleITK_USE_SYSTEM_ITK:BOOL=ON -DITK_DIR=$ITK_BUILD_DIR -DSimpleITK_USE_SYSTEM_ELASTIX:BOOL=ON -DElastix_DIR=$ELX_BUILD_DIR -DSimpleITK_4D_IMAGES:BOOL=OFF -GNinja ../SuperBuild
         ninja
 
     - name: Prepare Artifacts Unix

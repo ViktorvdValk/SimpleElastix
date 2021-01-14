@@ -59,7 +59,7 @@ include( sitkSITKLegacyNaming )
 include( sitkForbidDownloadsOption )
 include( sitkTargetUseITK )
 
-find_package(ITK REQUIRED PATHS ${ITK_DIR})
+find_package(ITK REQUIRED )
 #we require certain packages be turned on in ITK
 include(sitkCheckForITKModuleDependencies)
 
@@ -86,7 +86,7 @@ list(APPEND SimpleITK_PRIVATE_COMPILE_OPTIONS ${CXX_ADDITIONAL_WARNING_FLAGS})
 #-----------------------------------------------------------
 # Configure Elastix
 
-find_package(Elastix REQUIRED PATHS ${Elastix_DIR})
+find_package(Elastix REQUIRED)
 include(${ELASTIX_USE_FILE})
 
 if(ELASTIX_USE_OPENMP)
