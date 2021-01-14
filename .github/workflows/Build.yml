@@ -118,10 +118,12 @@ jobs:
         cmake -DBUILD_TESTING:BOOL=OFF -DELASTIX_BUILD_EXECUTABLE:BOOL=OFF -DITK_DIR=../ITK-build -DCMAKE_BUILD_TYPE=${{ matrix.cmake-build-type }} -GNinja ../Elastix-source
         ninja
       shell: cmd
-    
+
     - name: Build SimpleElastix Unix
       if: matrix.os != 'windows-2019'
       run: |
+        ls
+        ls ITK-build
         mkdir SimpleElastix-build
         cd SimpleElastix-build
         cmake -DWRAP_LUA:BOOL=OFF -DWRAP_PYTHON:BOOL=ON -DWRAP_JAVA:BOOL=OFF -DWRAP_CSHARP:BOOL=OFF -DWRAP_TCL:BOOL=OFF -DWRAP_R:BOOL=OFF -DWRAP_RUBY:BOOL=OFF -DBUILD_EXAMPLES:BOOL=ON -DBUILD_TESTING:BOOL=OFF -DCMAKE_CXX_FLAGS=-w -DCMAKE_C_FLAGS=-w -DCMAKE_BUILD_TYPE=${{ matrix.cmake-build-type }} -DSimpleITK_USE_SYSTEM_ITK:BOOL=ON -DITK_DIR=../ITK-build -DSimpleITK_USE_SYSTEM_ELASTIX:BOOL=ON -DElastix_DIR=../Elastix-build -DSimpleITK_4D_IMAGES:BOOL=OFF ../SuperBuild
