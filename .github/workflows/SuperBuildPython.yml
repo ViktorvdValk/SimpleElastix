@@ -45,12 +45,13 @@ jobs:
   #       name: LinuxWheels
   #       path: uploads
 
-  build-wheel-macos:
+  build-wheels-macos:
     runs-on: macos-10.15
     strategy:
       max-parallel: 3
       matrix:
-        python-version: [3.6, 3.7, 3.8]
+        python-version: [3.6]
+        # python-version: [3.6, 3.7, 3.8]
 
     steps:
     - uses: actions/checkout@v2
@@ -88,20 +89,21 @@ jobs:
         cd build/SimpleITK-build/Wrapping/Python
         ls
 
-    - name: Prepare Artifacts
-      shell: bash
-      run: |
-        mkdir uploads
-        cd ..
-        mv build/SimpleITK-build/Wrapping/Python/dist/*.whl SimpleElastix/uploads
-
-    - name: Publish Artifacts
-      uses: actions/upload-artifact@v2
-      with:
-        name: MacOsWheels${{ matrix.python-version }}
-        path: uploads
-
-  # build-wheel-windows:
+    # - name: Prepare Artifacts
+    #   shell: bash
+    #   run: |
+    #     mkdir uploads
+    #     cd ..
+    #     mv build/SimpleITK-build/Wrapping/Python/dist/*.whl SimpleElastix/uploads
+    #
+    # - name: Publish Artifacts
+    #   uses: actions/upload-artifact@v2
+    #   with:
+    #     name: MacOsWheels${{ matrix.python-version }}
+    #     path: uploads
+  #
+  #
+  # build-wheels-windows:
   #   runs-on: windows-2019
   #   strategy:
   #     max-parallel: 3
@@ -166,3 +168,31 @@ jobs:
   #     with:
   #       name: WindowsWheels${{ matrix.python-version }}
   #       path: uploads
+  #
+  # publish-wheel-to-pyi:
+  #   needs:
+  #     - build-wheels-linux
+  #     - build-wheels-macos
+  #     - build-wheels-windows
+  #   runs-on: ubuntu-18.04
+  #
+  #   steps:
+  #   - name: Download Python Packages
+  #     uses: actions/download-artifact@v2
+  #
+  #   - name: Prepare packages for upload
+  #     run: |
+  #       ls -R
+  #       for d in */; do
+  #         mv ${d}/*.whl .
+  #       done
+  #       mkdir dist
+  #       mv *.whl dist/
+  #       ls dist
+  #
+  #   - name: Publish distribution 📦 to Test PyPI
+  #     uses: pypa/gh-action-pypi-publish@master
+  #     with:
+  #       user: __token__
+  #       password: ${{ secrets.TEST_PYPI_API_TOKEN }}
+  #       repository_url: https://test.pypi.org/legacy/
