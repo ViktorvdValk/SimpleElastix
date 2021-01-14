@@ -61,7 +61,7 @@ jobs:
         path: |
           ITK-build
           ITK-source
-        key: ${{ matrix.itk-git-tag }}-${{ matrix.os }}-${{ matrix.cmake-build-type }}
+        key: ${{ matrix.itk-git-tag }}-${{ matrix.os }}
 
     - uses: actions/cache@v2
       id: cache_elastix
@@ -95,7 +95,7 @@ jobs:
       run: |
         mkdir ITK-build
         cd ITK-build
-        cmake -DBUILD_EXAMPLES=OFF -DBUILD_TESTING=OFF -DCMAKE_BUILD_TYPE=${{ matrix.cmake-build-type }} -DCMAKE_POSITION_INDEPENDENT_CODE:BOOL=ON -DCMAKE_VISIBILITY_INLINES_HIDDEN:BOOL=ON -DBUILD_SHARED_LIBS:BOOL=OFF -DCMAKE_SKIP_RPATH:BOOL=ON -DITK_LEGACY_REMOVE:BOOL=ON -DITK_USE_KWSTYLE:BOOL=OFF -DITK_BUILD_DEFAULT_MODULES:BOOL=ON -DModule_ITKReview:BOOL=ON -GNinja ../ITK-source
+        cmake -DBUILD_EXAMPLES=OFF -DBUILD_TESTING=OFF -DCMAKE_BUILD_TYPE=${{ matrix.cmake-build-type }} -DCMAKE_POSITION_INDEPENDENT_CODE:BOOL=ON -DCMAKE_VISIBILITY_INLINES_HIDDEN:BOOL=ON -DBUILD_SHARED_LIBS:BOOL=OFF -DCMAKE_SKIP_RPATH:BOOL=ON -DITK_LEGACY_REMOVE:BOOL=OFF -DITK_USE_KWSTYLE:BOOL=OFF -DITK_BUILD_DEFAULT_MODULES:BOOL=ON -DModule_ITKReview:BOOL=ON -GNinja ../ITK-source
         ninja
 
     - name: Build ITK
@@ -104,7 +104,7 @@ jobs:
         mkdir ITK-build
         cd ITK-build
         call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
-        cmake -DBUILD_EXAMPLES=OFF -DBUILD_TESTING=OFF -DCMAKE_BUILD_TYPE=${{ matrix.cmake-build-type }} -DCMAKE_POSITION_INDEPENDENT_CODE:BOOL=ON -DCMAKE_VISIBILITY_INLINES_HIDDEN:BOOL=ON -DBUILD_SHARED_LIBS:BOOL=OFF -DCMAKE_SKIP_RPATH:BOOL=ON -DITK_LEGACY_REMOVE:BOOL=ON -DITK_USE_KWSTYLE:BOOL=OFF -DITK_BUILD_DEFAULT_MODULES:BOOL=ON -DModule_ITKReview:BOOL=ON -GNinja ../ITK-source
+        cmake -DBUILD_EXAMPLES=OFF -DBUILD_TESTING=OFF -DCMAKE_BUILD_TYPE=${{ matrix.cmake-build-type }} -DCMAKE_POSITION_INDEPENDENT_CODE:BOOL=ON -DCMAKE_VISIBILITY_INLINES_HIDDEN:BOOL=ON -DBUILD_SHARED_LIBS:BOOL=OFF -DCMAKE_SKIP_RPATH:BOOL=ON -DITK_LEGACY_REMOVE:BOOL=OFf -DITK_USE_KWSTYLE:BOOL=OFF -DITK_BUILD_DEFAULT_MODULES:BOOL=ON -DModule_ITKReview:BOOL=ON -GNinja ../ITK-source
         ninja
       shell: cmd
 
