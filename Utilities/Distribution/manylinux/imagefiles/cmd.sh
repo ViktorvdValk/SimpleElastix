@@ -13,10 +13,19 @@ PYTHON_VERSIONS=${PYTHON_VERSIONS:-$(ls /opt/python | sed -e 's/cp2[0-6][^ ]\+ \
 NPROC=$(grep -c processor /proc/cpuinfo)
 export MAKEFLAGS="-j ${NPROC}"
 
+# if ExternalData_OBJECT_STORES is not set by the driver script then
+# set it here to enable  reuse of downloaded files between python
+# builds.
+export ExternalData_OBJECT_STORES=${ExternalData_OBJECT_STORES:-/tmp/.ExternalData}
+mkdir -p ${ExternalData_OBJECT_STORES}
+
+
+export PYTHONUSERBASE=${PYTHONUSERBASE:-/tmp/.pylocal}
+mkdir -p ${PYTHONUSERBASE}
+export PATH=${PATH}:/tmp/.pylocal/bin
 
 function build_simpleitk {
 
-    echo "SIMPLEITK_GIT_TAG: ${SIMPLEITK_GIT_TAG}"
 
     git clone https://github.com/SuperElastix/SimpleElastix.git ${SRC_DIR} &&
     (cd ${SRC_DIR}  && git checkout ${SIMPLEITK_GIT_TAG}  ) &&
@@ -51,7 +60,7 @@ function build_simpleitk_python {
     echo "PYTHON_INCLUDE_DIR:${PYTHON_INCLUDE_DIR}"
     echo "PYTHON_LIBRARY:${PYTHON_LIBRARY}"
 
-    ${PYTHON_EXECUTABLE} -m pip install --user numpy
+    ${PYTHON_EXECUTABLE} -m pip install --no-cache-dir --user numpy --progress-bar off
     rm -rf ${BLD_DIR}-${PYTHON} &&
     mkdir -p ${BLD_DIR}-${PYTHON} &&
     cd ${BLD_DIR}-${PYTHON} &&
@@ -84,6 +93,7 @@ for PYTHON in ${PYTHON_VERSIONS}; do
     PYTHON_EXECUTABLE=/opt/python/${PYTHON}/bin/python
     PLATFORM=$(${PYTHON_EXECUTABLE} -c "import distutils.util; print(distutils.util.get_platform())")
     build_simpleitk_python &&
-    ( ctest -j ${NPROC} -LE UNSTABLE | tee ${OUT_DIR}/ctest_${PLATFORM}_${PYTHON}.log;
-    auditwheel repair $(find ${BLD_DIR}-${PYTHON}/ -name SimpleITK*.whl) -w ${OUT_DIR}/wheelhouse/ )
+        ( auditwheel repair $(find ${BLD_DIR}-${PYTHON}/ -name SimpleITK*.whl) -w ${OUT_DIR}/wheelhouse/;
+          ctest -j ${NPROC} -LE UNSTABLE | tee ${OUT_DIR}/ctest_${PLATFORM}_${PYTHON}.log &&
+          rm -rf ${BLD_DIR}-${PYTHON} )
 done

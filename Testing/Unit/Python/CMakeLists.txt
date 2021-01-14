@@ -5,6 +5,9 @@
 sitk_add_python_test( Test.ImageTests
   "${CMAKE_CURRENT_SOURCE_DIR}/sitkImageTests.py" )
 
+sitk_add_python_test( Test.BasicFiltersTests
+  "${CMAKE_CURRENT_SOURCE_DIR}/sitkBasicFilterTests.py")
+
 sitk_add_python_test( Test.TransformTests
   "${CMAKE_CURRENT_SOURCE_DIR}/sitkTransformTests.py" )
 
@@ -15,8 +18,14 @@ sitk_add_python_test( Test.IOTest
   "${CMAKE_CURRENT_SOURCE_DIR}/IOTest.py"
   "${SimpleITK_TEST_OUTPUT_DIR}")
 
+<<<<<<< HEAD
 sitk_add_python_test( Test.TransformixImageFilterTest
   "${CMAKE_CURRENT_SOURCE_DIR}/sitkTransformixImageFilterTest.py" )
+=======
+sitk_add_python_test( Test.ExternalViewer
+  "${CMAKE_CURRENT_SOURCE_DIR}/sitkExternalViewerTest.py"
+  )
+>>>>>>> originSimpleITK/master
 
 # Numpy test.
 sitk_add_python_test( Test.Numpy
@@ -31,8 +40,8 @@ sitk_add_python_test( Test.ConcurrentImageRead
   "${CMAKE_CURRENT_SOURCE_DIR}/ConcurrentImageRead.py"
   )
 
-sitk_add_python_test( Test.ImageReadWriteInt64
-  "${CMAKE_CURRENT_SOURCE_DIR}/ImageReadWriteInt64.py"
+sitk_add_python_test( Test.ImageReadWrite
+  "${CMAKE_CURRENT_SOURCE_DIR}/sitkImageReadWrite.py"
   )
 
 
