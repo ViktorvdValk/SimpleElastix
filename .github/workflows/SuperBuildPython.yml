@@ -89,18 +89,18 @@ jobs:
         cd build/SimpleITK-build/Wrapping/Python
         ls
 
-    # - name: Prepare Artifacts
-    #   shell: bash
-    #   run: |
-    #     mkdir uploads
-    #     cd ..
-    #     mv build/SimpleITK-build/Wrapping/Python/dist/*.whl SimpleElastix/uploads
-    #
-    # - name: Publish Artifacts
-    #   uses: actions/upload-artifact@v2
-    #   with:
-    #     name: MacOsWheels${{ matrix.python-version }}
-    #     path: uploads
+    - name: Prepare Artifacts
+      shell: bash
+      run: |
+        mkdir uploads
+        cd ..
+        mv build/SimpleITK-build/Wrapping/Python/dist/*.whl SimpleElastix/uploads
+    
+    - name: Publish Artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: MacOsWheels${{ matrix.python-version }}
+        path: uploads
   #
   #
   # build-wheels-windows:
