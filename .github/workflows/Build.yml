@@ -115,7 +115,7 @@ jobs:
     - name: Download Elastix
       if: steps.cache_elastix.outputs.cache-hit != 'true'
       run: |
-        git clone https://github.com/SuperElastix/elastix.git --branch ${{ matrix.elastix-git-tag }} --depth 1 ${{ matrix.ELX_SOURCE_DIR }}
+        git clone https://github.com/SuperElastix/elastix.git --branch ${{ matrix.elastix-git-tag }} --depth 1 Elastix-source
 
 
     - name: Build Elastix Unix
