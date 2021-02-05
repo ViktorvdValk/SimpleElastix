@@ -136,43 +136,43 @@ jobs:
         ninja
       shell: cmd
 
-    - name: Build SimpleElastix Unix
-      if: matrix.os != 'windows-2019'
-      run: |
-        ls
-        ls ITK-build
-        locate libelastix.so
-        mkdir SimpleElastix-build
-        cd SimpleElastix-build
-        cmake -DWRAP_LUA:BOOL=OFF -DWRAP_PYTHON:BOOL=ON -DWRAP_JAVA:BOOL=OFF -DWRAP_CSHARP:BOOL=OFF -DWRAP_TCL:BOOL=OFF -DWRAP_R:BOOL=OFF -DWRAP_RUBY:BOOL=OFF -DBUILD_EXAMPLES:BOOL=ON -DBUILD_TESTING:BOOL=OFF -DCMAKE_CXX_FLAGS=-w -DCMAKE_C_FLAGS=-w -DCMAKE_BUILD_TYPE=${{ matrix.cmake-build-type }} -DSimpleITK_USE_SYSTEM_ITK:BOOL=ON -DITK_DIR=${{ matrix.ITK_BUILD_DIR }} -DSimpleITK_USE_SYSTEM_ELASTIX:BOOL=ON -DElastix_DIR=${{ matrix.ELX_BUILD_DIR }} -DSimpleITK_4D_IMAGES:BOOL=OFF -GNinja ../SuperBuild
-        ninja 
+#     - name: Build SimpleElastix Unix
+#       if: matrix.os != 'windows-2019'
+#       run: |
+#         ls
+#         ls ITK-build
+#         locate libelastix.so
+#         mkdir SimpleElastix-build
+#         cd SimpleElastix-build
+#         cmake -DWRAP_LUA:BOOL=OFF -DWRAP_PYTHON:BOOL=ON -DWRAP_JAVA:BOOL=OFF -DWRAP_CSHARP:BOOL=OFF -DWRAP_TCL:BOOL=OFF -DWRAP_R:BOOL=OFF -DWRAP_RUBY:BOOL=OFF -DBUILD_EXAMPLES:BOOL=ON -DBUILD_TESTING:BOOL=OFF -DCMAKE_CXX_FLAGS=-w -DCMAKE_C_FLAGS=-w -DCMAKE_BUILD_TYPE=${{ matrix.cmake-build-type }} -DSimpleITK_USE_SYSTEM_ITK:BOOL=ON -DITK_DIR=${{ matrix.ITK_BUILD_DIR }} -DSimpleITK_USE_SYSTEM_ELASTIX:BOOL=ON -DElastix_DIR=${{ matrix.ELX_BUILD_DIR }} -DSimpleITK_4D_IMAGES:BOOL=OFF -GNinja ../SuperBuild
+#         ninja 
         
-    - name: Build SimpleElastix Unix
-      if: matrix.os == 'windows-2019'
-      run: |
-        mkdir SimpleElastix-build
-        cd SimpleElastix-build
-        call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
-        cmake -DWRAP_LUA:BOOL=OFF -DWRAP_PYTHON:BOOL=ON -DWRAP_JAVA:BOOL=OFF -DWRAP_CSHARP:BOOL=OFF -DWRAP_TCL:BOOL=OFF -DWRAP_R:BOOL=OFF -DWRAP_RUBY:BOOL=OFF -DBUILD_EXAMPLES:BOOL=ON -DBUILD_TESTING:BOOL=OFF -DCMAKE_CXX_FLAGS=-w -DCMAKE_C_FLAGS=-w -DCMAKE_BUILD_TYPE=${{ matrix.cmake-build-type }} -DSimpleITK_USE_SYSTEM_ITK:BOOL=ON -DITK_DIR=${{ matrix.ITK_BUILD_DIR }} -DSimpleITK_USE_SYSTEM_ELASTIX:BOOL=ON -DElastix_DIR=${{ matrix.ELX_BUILD_DIR }} -DSimpleITK_4D_IMAGES:BOOL=OFF ../SuperBuild
-        msbuild /p:configuration=release ALL_BUILD.vcxproj
-      shell: cmd
+#     - name: Build SimpleElastix Unix
+#       if: matrix.os == 'windows-2019'
+#       run: |
+#         mkdir SimpleElastix-build
+#         cd SimpleElastix-build
+#         call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
+#         cmake -DWRAP_LUA:BOOL=OFF -DWRAP_PYTHON:BOOL=ON -DWRAP_JAVA:BOOL=OFF -DWRAP_CSHARP:BOOL=OFF -DWRAP_TCL:BOOL=OFF -DWRAP_R:BOOL=OFF -DWRAP_RUBY:BOOL=OFF -DBUILD_EXAMPLES:BOOL=ON -DBUILD_TESTING:BOOL=OFF -DCMAKE_CXX_FLAGS=-w -DCMAKE_C_FLAGS=-w -DCMAKE_BUILD_TYPE=${{ matrix.cmake-build-type }} -DSimpleITK_USE_SYSTEM_ITK:BOOL=ON -DITK_DIR=${{ matrix.ITK_BUILD_DIR }} -DSimpleITK_USE_SYSTEM_ELASTIX:BOOL=ON -DElastix_DIR=${{ matrix.ELX_BUILD_DIR }} -DSimpleITK_4D_IMAGES:BOOL=OFF ../SuperBuild
+#         msbuild /p:configuration=release ALL_BUILD.vcxproj
+#       shell: cmd
 
-    - name: Prepare Artifacts Unix
-      if: matrix.os != 'windows-2019'
-      shell: bash
-      run: |
-        mkdir uploads
-        mv SimpleElastix-build/SimpleITK-build/Wrapping/Python/dist/*.whl uploads
+#     - name: Prepare Artifacts Unix
+#       if: matrix.os != 'windows-2019'
+#       shell: bash
+#       run: |
+#         mkdir uploads
+#         mv SimpleElastix-build/SimpleITK-build/Wrapping/Python/dist/*.whl uploads
 
-    - name: Prepare Artifacts Windows
-      if: matrix.os == 'windows-2019'
-      shell: bash
-      run: |
-        mkdir uploads
-        mv SimpleElastix-build/SimpleITK-build/Wrapping/Python uploads
+#     - name: Prepare Artifacts Windows
+#       if: matrix.os == 'windows-2019'
+#       shell: bash
+#       run: |
+#         mkdir uploads
+#         mv SimpleElastix-build/SimpleITK-build/Wrapping/Python uploads
 
-    - name: Publish Artifacts
-      uses: actions/upload-artifact@v2
-      with:
-        name: "${{ matrix.os }}"
-        path: uploads
+#     - name: Publish Artifacts
+#       uses: actions/upload-artifact@v2
+#       with:
+#         name: "${{ matrix.os }}"
+#         path: uploads
