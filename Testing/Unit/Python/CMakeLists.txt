@@ -18,14 +18,12 @@ sitk_add_python_test( Test.IOTest
   "${CMAKE_CURRENT_SOURCE_DIR}/IOTest.py"
   "${SimpleITK_TEST_OUTPUT_DIR}")
 
-<<<<<<< HEAD
 sitk_add_python_test( Test.TransformixImageFilterTest
   "${CMAKE_CURRENT_SOURCE_DIR}/sitkTransformixImageFilterTest.py" )
-=======
+  
 sitk_add_python_test( Test.ExternalViewer
   "${CMAKE_CURRENT_SOURCE_DIR}/sitkExternalViewerTest.py"
   )
->>>>>>> originSimpleITK/master
 
 # Numpy test.
 sitk_add_python_test( Test.Numpy
