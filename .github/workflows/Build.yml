@@ -13,22 +13,22 @@ jobs:
     strategy:
       max-parallel: 3
       matrix:
-        os: [macos-10.15, ubuntu-18.04]
+        os: [macos-10.15]
         # os: [macos-10.15, ubuntu-18.04, windows-2019]
         include:
-          - os: ubuntu-18.04
-            c-compiler: "gcc"
-            cxx-compiler: "g++"
-            itk-git-tag: "v5.1.2"
-            elastix-git-tag: "5.0.1"
-            cmake-build-type: "Release"
-            ANNLib: "libANNlib-5.0.so"
-            ANNLib2: "libANNlib-5.0.so.1"
-            ITK_SOURCE_DIR: ../ITK-source
-            ITK_BUILD_DIR: ../ITK-build
-            ELX_SOURCE_DIR: ../Elastix-source
-            ELX_BUILD_DIR: ../Elastix-build
-            random_nr: 1
+#           - os: ubuntu-18.04
+#             c-compiler: "gcc"
+#             cxx-compiler: "g++"
+#             itk-git-tag: "v5.1.2"
+#             elastix-git-tag: "5.0.1"
+#             cmake-build-type: "Release"
+#             ANNLib: "libANNlib-5.0.so"
+#             ANNLib2: "libANNlib-5.0.so.1"
+#             ITK_SOURCE_DIR: ../ITK-source
+#             ITK_BUILD_DIR: ../ITK-build
+#             ELX_SOURCE_DIR: ../Elastix-source
+#             ELX_BUILD_DIR: ../Elastix-build
+#             random_nr: 1
           # - os: windows-2019
           #   c-compiler: "cl.exe"
           #   cxx-compiler: "cl.exe"
