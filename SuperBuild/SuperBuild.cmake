@@ -407,7 +407,7 @@ mark_as_advanced(SimpleITK_USE_SYSTEM_ELASTIX)
 
 if(SimpleITK_USE_SYSTEM_ELASTIX)
   find_package(Elastix REQUIRED)
-  target_link_libraries( SuperBuildSimpleITK Elastix )
+  target_link_libraries( SimpleITK Elastix )
   include(${ELASTIX_USE_FILE})
 
   if(ELASTIX_USE_OPENMP)
