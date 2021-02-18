@@ -574,4 +574,5 @@ file(WRITE ${CMAKE_CURRENT_BINARY_DIR}/ExternalProjectDependencies.txt "${ep_dep
 
 if(COMMAND ExternalData_Add_Target)
   ExternalData_Add_Target(SuperBuildSimpleITKSourceReal)
+  add_dependencies(SuperBuildSimpleITKSource SuperBuildSimpleITKSourceReal)
 endif()
