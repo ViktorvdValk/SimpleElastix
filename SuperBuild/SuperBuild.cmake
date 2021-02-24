@@ -409,6 +409,23 @@ if(SimpleITK_USE_SYSTEM_ELASTIX)
   set( Elastix_DIR "../Elastix-build" )
   find_package( Elastix REQUIRED )
   include( ${ELASTIX_USE_FILE} )
+  
+  include_directories( ${ELASTIX_INCLUDE_DIRS} )
+
+  # Add library dirs
+  link_directories( ${ELASTIX_LIBRARY_DIRS} )
+
+  # If Elastix_FOUND is set, this file is included via find_package() which provides
+  # ELASTIX_CONFIG_TARGETS_FILE and elxLIBRARY_DEPENDS_FILE. Guarding the following
+  # include statements allow users to include this file directly for backwards
+  # compatibility.
+  if( Elastix_FOUND )
+    # This file was found by find_package
+    include( ${ELASTIX_CONFIG_TARGETS_FILE} )
+  else()
+    # Include linking dependency info for backwards compatibility
+    include( ${elxLIBRARY_DEPENDS_FILE} )
+  endif()
 
   if(ELASTIX_USE_OPENMP)
     find_package(OpenMP QUIET)
