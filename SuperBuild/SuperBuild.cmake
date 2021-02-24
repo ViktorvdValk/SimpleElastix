@@ -406,7 +406,7 @@ sitk_legacy_naming(SimpleITK_USE_SYSTEM_ELASTIX USE_SYSTEM_ELASTIX)
 mark_as_advanced(SimpleITK_USE_SYSTEM_ELASTIX)
 
 if(SimpleITK_USE_SYSTEM_ELASTIX)
-  set( Elastix_DIR "./Elastix-build" )
+  set( Elastix_DIR "../Elastix-build" )
   find_package( Elastix REQUIRED )
   include( ${ELASTIX_USE_FILE} )
 
