@@ -406,8 +406,9 @@ sitk_legacy_naming(SimpleITK_USE_SYSTEM_ELASTIX USE_SYSTEM_ELASTIX)
 mark_as_advanced(SimpleITK_USE_SYSTEM_ELASTIX)
 
 if(SimpleITK_USE_SYSTEM_ELASTIX)
-  find_package(Elastix REQUIRED PATHS ./Elastix-build)
-  include(${ELASTIX_USE_FILE})
+  set( Elastix_DIR "./Elastix-build/bin" )
+  find_package( Elastix REQUIRED )
+  include( ${ELASTIX_USE_FILE} )
 
   if(ELASTIX_USE_OPENMP)
     find_package(OpenMP QUIET)
