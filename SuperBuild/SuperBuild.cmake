@@ -410,7 +410,6 @@ if(SimpleITK_USE_SYSTEM_ELASTIX)
   find_package( Elastix REQUIRED )
   include( ${ELASTIX_USE_FILE} )
   message("Elastix-use-file = ${ELASTIX_USE_FILE}")
-  list(APPEND ${CMAKE_PROJECT_NAME}_DEPENDENCIES Elastix)
 
   if(ELASTIX_USE_OPENMP)
     find_package(OpenMP QUIET)
