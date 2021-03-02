@@ -139,6 +139,7 @@ jobs:
     - name: Build SimpleElastix Unix
       if: matrix.os != 'windows-2019'
       run: |
+        export CXXFLAGS="$CXXFLAGS -fPIC"
         ls Elastix-build
         mkdir SimpleElastix-build
         cd SimpleElastix-build
