@@ -119,8 +119,9 @@ jobs:
 
 
     - name: Build Elastix Unix
-      if: steps.cache_elastix.outputs.cache-hit != 'true' && matrix.os != 'windows-2019'
+#       if: steps.cache_elastix.outputs.cache-hit != 'true' && matrix.os != 'windows-2019'
       run: |
+        export CXXFLAGS="$CXXFLAGS -fPIC"
         mkdir Elastix-build
         cd Elastix-build
         cmake -DBUILD_TESTING:BOOL=OFF -DELASTIX_BUILD_EXECUTABLE:BOOL=OFF -DITK_DIR=../ITK-build -DCMAKE_BUILD_TYPE=${{ matrix.cmake-build-type }} -GNinja ${{ matrix.ELX_SOURCE_DIR }}
