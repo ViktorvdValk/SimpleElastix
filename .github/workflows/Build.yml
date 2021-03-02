@@ -28,7 +28,7 @@ jobs:
             ITK_BUILD_DIR: ../ITK-build
             ELX_SOURCE_DIR: ../Elastix-source
             ELX_BUILD_DIR: ../Elastix-build
-            random_nr: 1
+            random_nr: 2
           # - os: windows-2019
           #   c-compiler: "cl.exe"
           #   cxx-compiler: "cl.exe"
@@ -119,7 +119,7 @@ jobs:
 
 
     - name: Build Elastix Unix
-#       if: steps.cache_elastix.outputs.cache-hit != 'true' && matrix.os != 'windows-2019'
+      if: steps.cache_elastix.outputs.cache-hit != 'true' && matrix.os != 'windows-2019'
       run: |
         export CXXFLAGS="$CXXFLAGS -fPIC"
         mkdir Elastix-build
