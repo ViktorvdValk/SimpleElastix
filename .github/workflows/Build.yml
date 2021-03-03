@@ -73,7 +73,7 @@ jobs:
         path: |
           Elastix-build
           Elastix-source
-        key: ${{ matrix.elastix-git-tag }}-${{ matrix.os }}-${{ matrix.cmake-build-type }}
+        key: ${{ matrix.elastix-git-tag }}-${{ matrix.os }}-${{ matrix.cmake-build-type }}-${{ matrix.random_nr }}
 
     - name: Set up Python 3.7
       uses: actions/setup-python@v1
