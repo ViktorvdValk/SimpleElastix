@@ -1,4 +1,5 @@
 if(NOT CMAKE_PROJECT_NAME STREQUAL "SimpleITK")
+  set ( ITK_DIR "../ITK-build" )
   find_package ( ITK )
   include( ${ITK_USE_FILE} )
   find_package ( Elastix )
